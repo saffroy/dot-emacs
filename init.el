@@ -36,7 +36,9 @@
  '(python-shell-virtualenv-root "venv")
  '(safe-local-variable-values
    (quote
-    ((python-shell-virtualenv-root . "venv3")
+    ((python-shell-virtualenv-root . "../venv")
+     (python-shell-extra-pythonpaths "..")
+     (python-shell-virtualenv-root . "venv")
      (python-shell-interpreter . "ipython3"))))
  '(tramp-syntax (quote simplified) nil (tramp))
  '(transient-mark-mode t)
@@ -49,11 +51,6 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
-
-;; there are bugs with this mode in python :( so enable it selectively
-;(require 'which-func)
-;(add-to-list 'which-func-modes 'c-mode)
-;(which-function-mode 1)
 
 (cond (window-system
         (define-key global-map [S-mouse-2] 'imenu)))
@@ -71,10 +68,6 @@
 (add-hook 'c++-mode-hook	'gtags-mode)
 (add-hook 'python-mode-hook	'gtags-mode)
 (add-hook 'dired-mode-hook	'gtags-mode)
-
-(add-to-list 'load-path "~/.emacs.d/site-lisp/rust-mode/")
-(autoload 'rust-mode "rust-mode" nil t)
-(add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode))
 
 ;(set-default-font "fixed")
 ;(set-default-font "-misc-fixed-medium-r-*-*-12-*-*-*-*-*-iso8859-15")
@@ -96,9 +89,11 @@
     (progn (set-background-color "grey86")
 	   (set-foreground-color "black"))))
 (dark-mode)
-
-; editing over ssh is a blessing!
-;(require 'tramp)
+;; New frames default to light mode
+(add-to-list 'default-frame-alist
+	     '(background-color . "grey86"))
+(add-to-list 'default-frame-alist
+	     '(foreground-color . "black"))
 
 ; re-enable scroll to left (with C-pgdn)
 (put 'scroll-left 'disabled nil)
@@ -174,8 +169,6 @@
 
 ;; EL-GET
 (add-to-list 'load-path (locate-user-emacs-file "el-get/el-get"))
-
-;(require 'el-get)
 (unless (require 'el-get nil 'noerror)
   (with-current-buffer
       (url-retrieve-synchronously
@@ -187,8 +180,10 @@
 (el-get-bundle applescript-mode
   (add-to-list 'auto-mode-alist '("\\.applescript\\'" . applescript-mode)))
 (el-get-bundle auto-complete)
-;; (el-get-bundle doxymacs)  ;build error (erda)
+(if (string= system-name "fafner")
+    (el-get-bundle doxymacs)) ; build error on erda
 (el-get-bundle goto-last-change)
+(el-get-bundle graphviz-dot-mode)
 (el-get-bundle haskell-mode)
 (el-get-bundle jedi)
 (el-get-bundle markdown-mode)
@@ -198,6 +193,11 @@
 ;;   :depends (flycheck tla-mode)
 ;;   :post-init (add-hook 'tla-mode-hook 'flycheck-mode))
 (el-get-bundle yaml-mode)
+(el-get-bundle s)
+(el-get-bundle dockerfile-mode)
+(el-get-bundle rpm-spec-mode)
+(el-get-bundle systemd-mode)
+(el-get-bundle rust-mode)
 
 ;;(el-get 'sync)
 
@@ -205,8 +205,7 @@
 ;; at source: M-x ielm then paste:
 ;; ELISP> `(setq my-packages ',(mapcar #'el-get-as-symbol (el-get-list-package-names-with-status "installed")))
 ;; (setq my-packages
-;;       '(auto-complete cl-lib ctable deferred el-get epc fuzzy
-;; 		      haskell-mode jedi popup python-environment restclient))
+;;       '(applescript-mode auto-complete cl-lib ctable deferred dockerfile-mode el-get epc fuzzy goto-last-change graphviz-dot-mode haskell-mode jedi markdown-mode popup python-environment restclient rpm-spec-mode rust-mode s systemd-mode tla-mode yaml-mode))
 ;; (el-get 'sync my-packages)
 
 ;; for python dev
@@ -238,7 +237,8 @@
 
 ;; load bitbucket creds (bitbucket-user and bitbucket-password)
 ;; for now that's solely for bitbucket access under restclient
-;(load-file "~/.emacs.d/bitbucket_creds.el")
+(if (string= system-name "fafner")
+    (load-file "~/.emacs.d/bitbucket_creds.el"))
 (put 'upcase-region 'disabled nil)
 
 
