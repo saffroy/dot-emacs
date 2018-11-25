@@ -9,6 +9,12 @@
   (with-current-buffer " *load*"
     (goto-char (point-max))))
 
+(defun on-fafner-p ()
+  (string= system-name "fafner"))
+(defun user-mail-address ()
+  ;; used for doxymacs templates
+  (if (on-fafner-p) "jm@scality.com" "saffroy@gmail.com"))
+
 ;; Added by Package.el.  This must come before configurations of
 ;; installed packages.  Don't delete this line.  If you don't want it,
 ;; just comment it out by adding a semicolon to the start of the line.
@@ -42,7 +48,6 @@
      (python-shell-interpreter . "ipython3"))))
  '(tramp-syntax (quote simplified) nil (tramp))
  '(transient-mark-mode t)
- '(user-mail-address "saffroy@gmail.com")
  '(vc-handled-backends (quote (Hg RCS CVS SVN SCCS Bzr Git Mtn Arch)))
  '(which-function-mode t))
 (custom-set-faces
@@ -180,7 +185,7 @@
 (el-get-bundle applescript-mode
   (add-to-list 'auto-mode-alist '("\\.applescript\\'" . applescript-mode)))
 (el-get-bundle auto-complete)
-(if (string= system-name "fafner")
+(if (on-fafner-p)
     (el-get-bundle doxymacs)) ; build error on erda
 (el-get-bundle goto-last-change)
 (el-get-bundle graphviz-dot-mode)
@@ -237,7 +242,7 @@
 
 ;; load bitbucket creds (bitbucket-user and bitbucket-password)
 ;; for now that's solely for bitbucket access under restclient
-(if (string= system-name "fafner")
+(if (on-fafner-p)
     (load-file "~/.emacs.d/bitbucket_creds.el"))
 (put 'upcase-region 'disabled nil)
 
