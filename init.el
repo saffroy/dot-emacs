@@ -94,11 +94,11 @@
     (progn (set-background-color "grey86")
 	   (set-foreground-color "black"))))
 (dark-mode)
-;; New frames default to light mode
+;; New frames default to dark mode
 (add-to-list 'default-frame-alist
-	     '(background-color . "grey86"))
+	     '(background-color . "black"))
 (add-to-list 'default-frame-alist
-	     '(foreground-color . "black"))
+	     '(foreground-color . "grey86"))
 
 ; re-enable scroll to left (with C-pgdn)
 (put 'scroll-left 'disabled nil)
