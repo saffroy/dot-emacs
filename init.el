@@ -227,9 +227,9 @@
 (defun maybe-venv-membership ()
   (when (and buffer-file-name
 	     (and (string-match "/src/membership/.*\.py$" buffer-file-name)))
-    (customize-set-variable 'python-shell-interpreter "ipython3")
-    (customize-set-variable 'python-shell-virtualenv-root "../venv-dbg")
-    (customize-set-variable 'python-shell-extra-pythonpaths '(".."))
+    (setq-local python-shell-interpreter "ipython3")
+    (setq-local python-shell-virtualenv-root "../venv-dbg")
+    (setq-local python-shell-extra-pythonpaths '(".."))
     ))
 (add-hook 'python-mode-hook 'maybe-venv-membership)
 
