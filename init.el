@@ -132,7 +132,8 @@
     (c-set-style "gnu")
     (setq indent-tabs-mode nil)))
 
-(add-hook 'c-mode-hook 'maybe-gnu-style)
+(add-hook 'c-mode-hook   'maybe-gnu-style)
+(add-hook 'c++-mode-hook 'maybe-gnu-style)
 
 ;; load .ct/.ht files in C++ mode
 (add-to-list 'auto-mode-alist '("\\.\\(ct\\|ht\\)\\'" . c++-mode))
