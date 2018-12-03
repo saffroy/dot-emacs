@@ -69,10 +69,12 @@
 (setq load-path (cons "/usr/local/share/gtags" load-path))
 (autoload 'gtags-mode "gtags" "" t)
 
-(add-hook 'c-mode-hook		'gtags-mode)
-(add-hook 'c++-mode-hook	'gtags-mode)
-(add-hook 'python-mode-hook	'gtags-mode)
-(add-hook 'dired-mode-hook	'gtags-mode)
+;; use a lambda because 'gtags-mode is a toggle
+;; and thus revert-buffer disables gtags
+(add-hook 'c-mode-hook		(lambda () (gtags-mode 1)))
+(add-hook 'c++-mode-hook	(lambda () (gtags-mode 1)))
+(add-hook 'python-mode-hook	(lambda () (gtags-mode 1)))
+(add-hook 'dired-mode-hook	(lambda () (gtags-mode 1)))
 
 ;(set-default-font "fixed")
 ;(set-default-font "-misc-fixed-medium-r-*-*-12-*-*-*-*-*-iso8859-15")
