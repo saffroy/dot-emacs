@@ -37,6 +37,7 @@
  '(gtags-suggested-key-mapping t)
  '(inhibit-startup-screen t)
  '(markdown-command "pandoc")
+ '(plantuml-jar-path "/usr/local/lib/plantuml.jar")
  '(python-check-command "pyflakes")
  '(python-shell-interpreter "ipython")
  '(python-shell-virtualenv-root "venv")
@@ -206,6 +207,7 @@
 (el-get-bundle rpm-spec-mode)
 (el-get-bundle systemd-mode)
 (el-get-bundle rust-mode)
+(el-get-bundle plantuml-mode)
 
 ;;(el-get 'sync)
 
