@@ -236,9 +236,9 @@
 ;; set venv root for selected paths
 (defun maybe-venv-membership ()
   (when (and buffer-file-name
-	     (and (string-match "/src/membership/.*\.py$" buffer-file-name)))
+	     (and (string-match "/membership/src/.*\.py$" buffer-file-name)))
     (setq-local python-shell-interpreter "ipython3")
-    (setq-local python-shell-virtualenv-root "../venv-dbg")
+    (setq-local python-shell-virtualenv-root "../.tox/py34")
     (setq-local python-shell-extra-pythonpaths '(".."))
     ))
 (add-hook 'python-mode-hook 'maybe-venv-membership)
