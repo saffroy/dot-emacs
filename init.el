@@ -154,6 +154,9 @@
   (other-window -1))
 (global-set-key [C-iso-lefttab] 'my-prev-window)
 
+;; invoke magit UI
+(global-set-key (kbd "C-x g") 'magit-status)
+
 ;; initial frame/window layout
 ;; split frame in 3 windows when plugged to wide monitor, otherwise just 2
 (defun my-init-window ()
@@ -208,6 +211,8 @@
 (el-get-bundle systemd-mode)
 (el-get-bundle rust-mode)
 (el-get-bundle plantuml-mode)
+(el-get-bundle magit
+  :branch "v2.90.1") ;; more recent requires packaging change
 
 ;;(el-get 'sync)
 
