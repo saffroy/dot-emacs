@@ -80,12 +80,14 @@
 ;(set-default-font "fixed")
 ;(set-default-font "-misc-fixed-medium-r-*-*-12-*-*-*-*-*-iso8859-15")
 ; grep ^fixed /etc/X11/fonts/misc/xfonts-base.alias
-;(set-default-font "-misc-fixed-medium-r-semicondensed--13-120-75-75-c-60-iso8859-15")
+;(set-frame-font "-misc-fixed-medium-r-semicondensed-*-13-120-75-75-c-60-iso8859-15")
 ; next is ok for presentations, adjust size with C-x C-+
-;(set-default-font "-misc-*-medium-r-*-*-*-200-*-*-*-*-iso8859-15")
-;(set-frame-font "-xos4-Terminus-medium-*-*-*-20-*-*-*-c-100-iso10646-1")
+;(set-frame-font "-misc-*-medium-r-*-*-*-200-*-*-*-*-iso8859-15")
+;(set-frame-font "-xos4-Terminus-bold-*-*-*-20-*-*-*-c-100-iso10646-1")
+;(set-frame-font "DejaVu Sans Mono Bold 7")
+(set-frame-font "Terminus 9")
 (add-to-list 'default-frame-alist
-	     '(font . "-misc-fixed-medium-r-semicondensed--13-120-75-75-c-60-iso8859-15"))
+	     '(font . "Terminus 9"))
 ;(set-background-color "gray86")
 
 ;; Set dark mode. Prefix with C-- for light mode.
