@@ -278,3 +278,5 @@
 ;; https://www.gnu.org/software/emacs/manual/html_node/efaq/Matching-parentheses.html#Matching-parentheses
 (show-paren-mode 1)
 
+;; default bound to C-x C-l (opposite: C-x C-u)
+(put 'downcase-region 'disabled nil)
