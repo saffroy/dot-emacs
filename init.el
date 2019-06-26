@@ -157,6 +157,12 @@
 ;; invoke magit UI
 (global-set-key (kbd "C-x g") 'magit-status)
 
+;; invoke occur for symbol at point
+(defun my-occur-symbol-at-point (&optional nlines)
+  (interactive "P")
+  (occur (find-tag-default-as-symbol-regexp) nlines))
+(global-set-key (kbd "M-s O") 'my-occur-symbol-at-point)
+
 ;; initial frame/window layout
 ;; split frame in 3 windows when plugged to wide monitor, otherwise just 2
 (defun my-init-window ()
