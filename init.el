@@ -213,6 +213,7 @@
 (el-get-bundle plantuml-mode)
 (el-get-bundle magit
   :branch "v2.90.1") ;; more recent requires packaging change
+;;(el-get-bundle smartparens)
 
 ;;(el-get 'sync)
 
