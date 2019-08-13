@@ -161,7 +161,7 @@
 
 ;; invoke occur for symbol at point
 (defun my-occur-symbol-at-point (&optional nlines)
-  (interactive "P")
+  (interactive "p")
   (occur (find-tag-default-as-symbol-regexp) nlines))
 (global-set-key (kbd "M-s O") 'my-occur-symbol-at-point)
 
