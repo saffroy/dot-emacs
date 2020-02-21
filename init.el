@@ -212,7 +212,8 @@
 ;; (el-get-bundle iamarcel/flycheck-tla
 ;;   :depends (flycheck tla-mode)
 ;;   :post-init (add-hook 'tla-mode-hook 'flycheck-mode))
-(el-get-bundle yaml-mode)
+(el-get-bundle yaml-mode
+  (add-to-list 'auto-mode-alist '("\\.sls\\'" . yaml-mode)))
 (el-get-bundle s)
 (el-get-bundle dockerfile-mode)
 (el-get-bundle rpm-spec-mode)
@@ -222,6 +223,9 @@
 (el-get-bundle magit
   :branch "v2.90.1") ;; more recent requires packaging change
 ;;(el-get-bundle smartparens)
+(el-get-bundle toml-mode)
+(el-get-bundle docker-tramp
+  :post-init (require 'docker-tramp-compat))
 
 ;;(el-get 'sync)
 
