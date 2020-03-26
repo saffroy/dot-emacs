@@ -226,6 +226,8 @@
 (el-get-bundle toml-mode)
 (el-get-bundle docker-tramp
   :post-init (require 'docker-tramp-compat))
+(el-get-bundle jinja2-mode)
+(el-get-bundle web-mode)
 
 ;;(el-get 'sync)
 
