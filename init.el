@@ -222,6 +222,7 @@
 (el-get-bundle rust-mode)
 (el-get-bundle plantuml-mode)
 (el-get-bundle magit
+  :depends (with-editor magit-popup let-alist ghub emacs-async dash)
   :branch "v2.90.1") ;; more recent requires packaging change
 ;;(el-get-bundle smartparens)
 (el-get-bundle toml-mode)
