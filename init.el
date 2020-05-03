@@ -296,3 +296,6 @@
 
 ;; default bound to C-x C-l (opposite: C-x C-u)
 (put 'downcase-region 'disabled nil)
+
+;; auto-close parens etc.
+(electric-pair-mode)
