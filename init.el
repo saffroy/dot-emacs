@@ -296,3 +296,6 @@
 
 ;; auto-close parens etc.
 (electric-pair-mode)
+
+;; keep remote user's path
+(add-to-list 'tramp-remote-path 'tramp-own-remote-path)
