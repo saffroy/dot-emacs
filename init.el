@@ -51,7 +51,8 @@
  '(tramp-syntax (quote simplified) nil (tramp))
  '(transient-mark-mode t)
  '(vc-handled-backends (quote (Hg RCS CVS SVN SCCS Bzr Git Mtn Arch)))
- '(which-function-mode t))
+ '(which-function-mode t)
+ '(windmove-wrap-around t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -150,12 +151,8 @@
 ;; unbind annoying 'Alt-5' binding
 (global-unset-key "\M-(")
 
-;; move between windows with C-tab / C-S-tab
-(global-set-key [C-tab] 'other-window)
-(defun my-prev-window ()
-  (interactive)
-  (other-window -1))
-(global-set-key [C-iso-lefttab] 'my-prev-window)
+;; move between windows with shift+arrow keys
+(windmove-default-keybindings)
 
 ;; invoke magit UI
 (global-set-key (kbd "C-x g") 'magit-status)
