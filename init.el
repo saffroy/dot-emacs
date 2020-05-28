@@ -48,6 +48,7 @@
      (python-shell-extra-pythonpaths "..")
      (python-shell-virtualenv-root . "venv")
      (python-shell-interpreter . "ipython3"))))
+ '(selection-coding-system (quote utf-8))
  '(tramp-syntax (quote simplified) nil (tramp))
  '(transient-mark-mode t)
  '(vc-handled-backends (quote (Hg RCS CVS SVN SCCS Bzr Git Mtn Arch)))
