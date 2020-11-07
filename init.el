@@ -63,10 +63,6 @@
 (cond (window-system
         (define-key global-map [S-mouse-2] 'imenu)))
 
-(when window-system
-  ;; enable wheelmouse support by default
-  (mwheel-install))
-
 (setq load-path (cons "/usr/local/share/gtags" load-path))
 (autoload 'gtags-mode "gtags" "" t)
 
