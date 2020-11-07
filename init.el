@@ -221,6 +221,7 @@
   :post-init (require 'docker-tramp-compat))
 (el-get-bundle jinja2-mode)
 (el-get-bundle web-mode)
+(el-get-bundle wgrep)
 
 ;;(el-get 'sync)
 
