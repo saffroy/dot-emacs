@@ -262,7 +262,6 @@
 ;; for now that's solely for bitbucket access under restclient
 (if (on-fafner-p)
     (load-file "~/.emacs.d/bitbucket_creds.el"))
-(put 'upcase-region 'disabled nil)
 
 
 ;; Toggle window dedication
@@ -287,6 +286,7 @@
 
 ;; default bound to C-x C-l (opposite: C-x C-u)
 (put 'downcase-region 'disabled nil)
+(put 'upcase-region 'disabled nil)
 
 ;; auto-close parens etc.
 (electric-pair-mode)
