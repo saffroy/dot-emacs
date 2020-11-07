@@ -48,7 +48,6 @@
      (python-shell-extra-pythonpaths "..")
      (python-shell-virtualenv-root . "venv")
      (python-shell-interpreter . "ipython3"))))
- '(selection-coding-system (quote utf-8))
  '(tramp-syntax (quote simplified) nil (tramp))
  '(transient-mark-mode t)
  '(vc-handled-backends (quote (Hg RCS CVS SVN SCCS Bzr Git Mtn Arch)))
@@ -66,9 +65,7 @@
 
 (when window-system
   ;; enable wheelmouse support by default
-  (mwheel-install)
-  ;; use extended compound-text coding for X clipboard
-  (set-selection-coding-system 'compound-text-with-extensions))
+  (mwheel-install))
 
 (setq load-path (cons "/usr/local/share/gtags" load-path))
 (autoload 'gtags-mode "gtags" "" t)
