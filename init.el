@@ -43,7 +43,7 @@
  '(c-default-style "linux")
  '(case-fold-search t)
  '(column-number-mode t)
- '(compilation-scroll-output (quote first-error))
+ '(compilation-scroll-output 'first-error)
  '(current-language-environment "English")
  '(global-font-lock-mode t nil (font-lock))
  '(gtags-auto-update t)
@@ -51,19 +51,19 @@
  '(gtags-suggested-key-mapping t)
  '(inhibit-startup-screen t)
  '(markdown-command "pandoc")
- '(plantuml-jar-path "/usr/local/lib/plantuml.jar")
+ '(package-selected-packages '(compat))
+ '(plantuml-jar-path "/usr/local/lib/plantuml.jar" t)
  '(python-check-command "pyflakes")
  '(python-shell-interpreter "ipython")
  '(python-shell-virtualenv-root "venv")
  '(safe-local-variable-values
-   (quote
-    ((python-shell-virtualenv-root . "../venv")
+   '((python-shell-virtualenv-root . "../venv")
      (python-shell-extra-pythonpaths "..")
      (python-shell-virtualenv-root . "venv")
-     (python-shell-interpreter . "ipython3"))))
- '(tramp-syntax (quote simplified) nil (tramp))
+     (python-shell-interpreter . "ipython3")))
+ '(tramp-syntax 'simplified nil (tramp))
  '(transient-mark-mode t)
- '(vc-handled-backends (quote (Hg RCS CVS SVN SCCS Bzr Git Mtn Arch)))
+ '(vc-handled-backends '(Hg RCS CVS SVN SCCS Bzr Git Mtn Arch))
  '(which-function-mode t)
  '(windmove-wrap-around t))
 (custom-set-faces
@@ -214,9 +214,6 @@
 (el-get-bundle markdown-mode)
 (el-get-bundle restclient)
 (el-get-bundle ratish-punnoose/tla-mode)
-;; (el-get-bundle iamarcel/flycheck-tla
-;;   :depends (flycheck tla-mode)
-;;   :post-init (add-hook 'tla-mode-hook 'flycheck-mode))
 (el-get-bundle yaml-mode
   (add-to-list 'auto-mode-alist '("\\.sls\\'" . yaml-mode)))
 (el-get-bundle s)
@@ -225,10 +222,7 @@
 (el-get-bundle systemd-mode)
 (el-get-bundle rust-mode)
 (el-get-bundle plantuml-mode)
-(el-get-bundle magit
-  :depends (with-editor magit-popup let-alist ghub emacs-async dash)
-  :branch "v2.90.1") ;; more recent requires packaging change
-;;(el-get-bundle smartparens)
+(el-get-bundle magit)
 (el-get-bundle toml-mode)
 (el-get-bundle docker-tramp
   :post-init (require 'docker-tramp-compat))
