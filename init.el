@@ -1,9 +1,3 @@
-;; workaround for some weird wm bug
-;; source: http://ubuntuforums.org/showthread.php?t=183638
-;; without this, setting the font lags for a few seconds
-;; (modify-frame-parameters nil '((wait-for-wm . nil)))
-
-
 ;; The default is 800 kilobytes.  Measured in bytes.
 (setq gc-cons-threshold (* 100 1000 1000))
 
@@ -21,12 +15,6 @@
 (defun my-exit ()
   (with-current-buffer " *load*"
     (goto-char (point-max))))
-
-(defun on-fafner-p ()
-  (string= system-name "fafner"))
-(defun user-mail-address ()
-  ;; used for doxymacs templates
-  (if (on-fafner-p) "jm@scality.com" "saffroy@gmail.com"))
 
 ;; Added by Package.el.  This must come before configurations of
 ;; installed packages.  Don't delete this line.  If you don't want it,
@@ -49,6 +37,7 @@
  '(gtags-auto-update t)
  '(gtags-find-all-text-files nil)
  '(gtags-suggested-key-mapping t)
+ '(indent-tabs-mode nil)
  '(inhibit-startup-screen t)
  '(markdown-command "pandoc")
  '(package-selected-packages '(compat))
@@ -100,7 +89,6 @@
 (set-frame-font "Terminus 9")
 (add-to-list 'default-frame-alist
 	     '(font . "Terminus 9"))
-;(set-background-color "gray86")
 
 ;; Set dark mode. Prefix with C-- for light mode.
 (defun dark-mode (&optional light)
@@ -139,21 +127,6 @@
         (t nil)))
 
 (global-set-key (kbd "C-%") 'goto-match-paren)
-
-;; set C style to "gnu" for selected paths
-(defun maybe-gnu-style ()
-  (when (and buffer-file-name
-	     (and (or (mapcar (lambda (pat) (string-match pat buffer-file-name))
-			      '("msgstore" "nasdk" "sfused" "scal-std" "biziod")))
-		  (not (string-match "/sparse/" buffer-file-name))))
-    (c-set-style "gnu")
-    (setq indent-tabs-mode nil)))
-
-(add-hook 'c-mode-hook   'maybe-gnu-style)
-(add-hook 'c++-mode-hook 'maybe-gnu-style)
-
-;; load .ct/.ht files in C++ mode
-(add-to-list 'auto-mode-alist '("\\.\\(ct\\|ht\\)\\'" . c++-mode))
 
 ;; bind F5 to re-run current compile command
 (global-set-key [f5] 'recompile)
@@ -208,8 +181,6 @@
 (el-get-bundle applescript-mode
   (add-to-list 'auto-mode-alist '("\\.applescript\\'" . applescript-mode)))
 (el-get-bundle auto-complete)
-(if (on-fafner-p)
-    (el-get-bundle doxymacs)) ; build error on erda
 (el-get-bundle goto-last-change)
 (el-get-bundle graphviz-dot-mode)
 (el-get-bundle haskell-mode)
@@ -233,48 +204,15 @@
 (el-get-bundle web-mode)
 (el-get-bundle wgrep)
 
-;;(el-get 'sync)
-
-;; to restore el-get (once)
-;; at source: M-x ielm then paste:
-;; ELISP> `(setq my-packages ',(mapcar #'el-get-as-symbol (el-get-list-package-names-with-status "installed")))
-;; (setq my-packages
-;;       '(applescript-mode auto-complete cl-lib ctable deferred dockerfile-mode el-get epc fuzzy goto-last-change graphviz-dot-mode haskell-mode jedi markdown-mode popup python-environment restclient rpm-spec-mode rust-mode s systemd-mode tla-mode yaml-mode))
-;; (el-get 'sync my-packages)
-
-;; for python dev
-
-;(setq load-path (cons "~/.emacs.d/lisp" load-path))
-;(require 'python-pep8)
-;(require 'python-pylint)
-
 ;; Jedi mode for python
 (add-hook 'python-mode-hook 'jedi:setup)
 (setq jedi:complete-on-dot t)
 (setq jedi:use-shortcuts t)
 
-;; set venv root for selected paths
-(defun maybe-venv-membership ()
-  (when (and buffer-file-name
-	     (and (string-match "/membership/src/.*\.py$" buffer-file-name)))
-    (setq-local python-shell-interpreter "ipython3")
-    (setq-local python-shell-virtualenv-root "../.tox/py34")
-    (setq-local python-shell-extra-pythonpaths '(".."))
-    ))
-(add-hook 'python-mode-hook 'maybe-venv-membership)
-
 ;; haskell
-;(add-hook 'haskell-mode-hook 'gtags-mode)
 (add-hook 'haskell-mode-hook 'haskell-indent-mode)
 (add-hook 'haskell-mode-hook 'interactive-haskell-mode)
 (add-hook 'haskell-mode-hook 'haskell-process-load-file)
-;(add-to-list 'which-func-modes 'haskell-mode)
-
-;; load bitbucket creds (bitbucket-user and bitbucket-password)
-;; for now that's solely for bitbucket access under restclient
-(if (on-fafner-p)
-    (load-file "~/.emacs.d/bitbucket_creds.el"))
-
 
 ;; Toggle window dedication
 ;; https://stackoverflow.com/questions/43765/pin-emacs-buffers-to-windows-for-cscope#65992
