@@ -54,11 +54,15 @@
  '(package-selected-packages '(compat))
  '(plantuml-jar-path "/usr/local/lib/plantuml.jar" t)
  '(python-check-command "pyflakes")
- '(python-shell-interpreter "ipython")
- '(python-shell-virtualenv-root "venv")
+ '(python-shell-interpreter "python3")
  '(safe-local-variable-values
-   '((python-shell-virtualenv-root . "../venv")
-     (python-shell-extra-pythonpaths "..")
+   '((eval setq python-shell-virtualenv-root
+	   (concat default-directory "venv-pypy"))
+     (eval setq python-shell-virtualenv-root
+	   (concat default-directory "venv"))
+     (python-shell-interpreter . "python3")
+     (eval setq python-shell-virtualenv-root
+	   (concat default-directory "venv3"))
      (python-shell-virtualenv-root . "venv")
      (python-shell-interpreter . "ipython3")))
  '(tramp-syntax 'simplified nil (tramp))
@@ -83,7 +87,6 @@
 ;; and thus revert-buffer disables gtags
 (add-hook 'c-mode-hook		(lambda () (gtags-mode 1)))
 (add-hook 'c++-mode-hook	(lambda () (gtags-mode 1)))
-(add-hook 'python-mode-hook	(lambda () (gtags-mode 1)))
 (add-hook 'dired-mode-hook	(lambda () (gtags-mode 1)))
 
 ;(set-default-font "fixed")
@@ -248,6 +251,7 @@
 ;; Jedi mode for python
 (add-hook 'python-mode-hook 'jedi:setup)
 (setq jedi:complete-on-dot t)
+(setq jedi:use-shortcuts t)
 
 ;; set venv root for selected paths
 (defun maybe-venv-membership ()
