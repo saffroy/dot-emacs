@@ -42,7 +42,7 @@
  '(inhibit-startup-screen t)
  '(markdown-command "pandoc")
  '(package-selected-packages '(compat))
- '(plantuml-jar-path "/usr/local/lib/plantuml.jar" t)
+ '(plantuml-default-exec-mode 'jar)
  '(python-check-command "pyflakes")
  '(python-shell-interpreter "python3")
  '(safe-local-variable-values
