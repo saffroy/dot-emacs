@@ -37,6 +37,7 @@
  '(gtags-auto-update t)
  '(gtags-find-all-text-files nil)
  '(gtags-suggested-key-mapping t)
+ '(httpd-port 8088)
  '(indent-tabs-mode nil)
  '(inhibit-startup-screen t)
  '(markdown-command "pandoc")
@@ -199,6 +200,12 @@
 (el-get-bundle web-mode)
 (el-get-bundle wgrep)
 
+(el-get-bundle impatient-mode) ;; local recipe
+
+;; End of recipes, call `el-get' to make sure all packages (including
+;; dependencies) are setup.
+(el-get 'sync)
+
 ;; Jedi mode for python
 (add-hook 'python-mode-hook 'jedi:setup)
 (setq jedi:complete-on-dot t)
@@ -238,3 +245,31 @@
 
 ;; keep remote user's path
 (add-to-list 'tramp-remote-path 'tramp-own-remote-path)
+
+;; custom filter for impatient mode that does simple string sustitutions
+
+(setq my-imp-subs '(("/static/" . "")
+                    ("base href=\"/\"" . "base href=\"\"")))
+
+(defun my-imp-replace (input-buffer)
+  "Create a new buffer with content from INPUT-BUFFER, apply all
+string subtitutions in my-imp-subs, and return the new buffer."
+  (let ((output-buffer (generate-new-buffer "replaced-foo-with-bar")))
+    (with-current-buffer output-buffer
+      (insert-buffer-substring input-buffer)
+      (map-do (lambda (str-from str-to)
+                (goto-char (point-min))
+                (while (search-forward str-from nil t)
+                  (replace-match str-to t t)))
+              my-imp-subs))
+    output-buffer))
+
+(defun my-imp-user-filter (buffer)
+  "Alter buffer before sending to clients."
+  (let ((subs-buffer (save-match-data (my-imp-replace buffer))))
+    (princ (with-current-buffer subs-buffer (buffer-string)))
+    (kill-buffer subs-buffer)))
+
+(defun my-imp-set-user-filter ()
+  (interactive)
+  (imp-set-user-filter 'my-imp-user-filter))

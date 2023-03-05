@@ -1,0 +1,4 @@
+(:name impatient-mode
+  :type github
+  :pkgname "skeeto/impatient-mode"
+  :depends (simple-httpd htmlize))
