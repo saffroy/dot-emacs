@@ -45,15 +45,10 @@
  '(python-check-command "pyflakes")
  '(python-shell-interpreter "python3")
  '(safe-local-variable-values
-   '((eval setq python-shell-virtualenv-root
-	   (concat default-directory "venv-pypy"))
-     (eval setq python-shell-virtualenv-root
-	   (concat default-directory "venv"))
+   '((python-shell-virtualenv-root . "~/prog/python/fbxserv/venv")
+     (python-shell-virtualenv-root . "~/prog/python/freeboxrec/venv")
      (python-shell-interpreter . "python3")
-     (eval setq python-shell-virtualenv-root
-	   (concat default-directory "venv3"))
-     (python-shell-virtualenv-root . "venv")
-     (python-shell-interpreter . "ipython3")))
+     (python-shell-virtualenv-root . "venv")))
  '(tramp-syntax 'simplified nil (tramp))
  '(transient-mark-mode t)
  '(vc-handled-backends '(Hg RCS CVS SVN SCCS Bzr Git Mtn Arch))
