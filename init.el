@@ -199,8 +199,14 @@
 (el-get-bundle jinja2-mode)
 (el-get-bundle web-mode)
 (el-get-bundle wgrep)
-
 (el-get-bundle impatient-mode) ;; local recipe
+(el-get-bundle js-comint)
+(add-hook 'js-mode-hook
+          (lambda ()
+            (local-set-key (kbd "C-c C-p") 'js-comint-repl)
+            (local-set-key (kbd "C-x C-e") 'js-comint-send-last-sexp)
+            (local-set-key (kbd "C-c C-r") 'js-comint-send-region)
+            (local-set-key (kbd "C-c C-b") 'js-comint-send-buffer)))
 
 ;; End of recipes, call `el-get' to make sure all packages (including
 ;; dependencies) are setup.
