@@ -207,6 +207,8 @@
             (local-set-key (kbd "C-x C-e") 'js-comint-send-last-sexp)
             (local-set-key (kbd "C-c C-r") 'js-comint-send-region)
             (local-set-key (kbd "C-c C-b") 'js-comint-send-buffer)))
+(el-get-bundle editorconfig
+  :post-init (editorconfig-mode 1))
 
 ;; End of recipes, call `el-get' to make sure all packages (including
 ;; dependencies) are setup.
