@@ -151,8 +151,7 @@
       (split-window nil nil t))
   (balance-windows))
 (when window-system
-  (when (not (version< emacs-version "23"))
-    (my-init-window)))
+  (my-init-window))
 
 ;; change all prompts to y or n
 (fset 'yes-or-no-p 'y-or-n-p)
