@@ -65,7 +65,7 @@
 (cond (window-system
         (define-key global-map [S-mouse-2] 'imenu)))
 
-(setq load-path (cons "/usr/local/share/gtags" load-path))
+(add-to-list 'load-path "/usr/local/share/gtags")
 (autoload 'gtags-mode "gtags" "" t)
 
 ;; use a lambda because 'gtags-mode is a toggle
