@@ -1,0 +1,4 @@
+(:name ellama
+  :type github
+  :pkgname "s-kostyaev/ellama"
+  :depends (json llm spinner))

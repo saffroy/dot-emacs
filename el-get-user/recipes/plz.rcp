@@ -1,0 +1,4 @@
+(:name plz
+  :type github
+  :pkgname "alphapapa/plz.el"
+  :depends (cl-lib))

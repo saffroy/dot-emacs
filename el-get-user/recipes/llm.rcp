@@ -1,0 +1,4 @@
+(:name llm
+  :type github
+  :pkgname "ahyatt/llm"
+  :depends (cl-lib plz))
