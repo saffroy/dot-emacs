@@ -178,7 +178,7 @@
 
 (el-get-bundle applescript-mode
   (add-to-list 'auto-mode-alist '("\\.applescript\\'" . applescript-mode)))
-(el-get-bundle auto-complete)
+(el-get-bundle company-mode)
 (el-get-bundle goto-last-change)
 (el-get-bundle graphviz-dot-mode)
 (el-get-bundle haskell-mode)
@@ -211,6 +211,8 @@
             (local-set-key (kbd "C-c C-b") 'js-comint-send-buffer)))
 (el-get-bundle editorconfig
   :post-init (editorconfig-mode 1))
+(el-get-bundle lsp-mode)
+(add-hook 'rust-mode-hook 'lsp-deferred)
 
 ;; End of recipes, call `el-get' to make sure all packages (including
 ;; dependencies) are setup.
