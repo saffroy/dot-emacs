@@ -16,6 +16,9 @@
   (with-current-buffer " *load*"
     (goto-char (point-max))))
 
+;; laptop vs. desktop
+(setq on-laptop-p (string= (system-name) "fafner"))
+
 ;; Added by Package.el.  This must come before configurations of
 ;; installed packages.  Don't delete this line.  If you don't want it,
 ;; just comment it out by adding a semicolon to the start of the line.
@@ -83,7 +86,9 @@
 ;(set-frame-font "-xos4-Terminus-bold-*-*-*-20-*-*-*-c-100-iso10646-1")
 ;(set-frame-font "DejaVu Sans Mono Book 12")
 ;(set-frame-font "Terminus")
-(let ((font "DejaVu Sans Mono Book 9"))
+(let ((font (if on-laptop-p
+                "DejaVu Sans Mono Book 11"
+              "DejaVu Sans Mono Book 9")))
   (progn
     (set-frame-font font)
     (add-to-list 'default-frame-alist
@@ -150,7 +155,7 @@
 (defun my-init-window ()
   (set-frame-parameter nil 'fullscreen 'maximized)
   (split-window nil nil t)
-  (if (> (display-pixel-width) 1366)
+  (if (not on-laptop-p)
       (split-window nil nil t))
   (balance-windows))
 (when window-system
