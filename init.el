@@ -22,6 +22,45 @@
 ;; You may delete these explanatory comments.
 ;(package-initialize)
 
+;; packages
+(setq package-archives
+      '(("gnu" . "https://elpa.gnu.org/packages/")
+        ("melpa" . "https://melpa.org/packages/")))
+
+(require 'package)
+(package-initialize)
+;; (package-refresh-contents) ;; to be done on-demand
+
+(setq my-packages
+      '(
+        company
+        goto-last-change
+        graphviz-dot-mode
+        haskell-mode
+        jedi
+        markdown-mode
+        restclient
+        yaml-mode
+        dockerfile-mode
+        rpm-spec-mode
+        ;; systemd-mode
+        rust-mode
+        plantuml-mode
+        magit
+        toml-mode
+        docker-tramp
+        jinja2-mode
+        web-mode
+        wgrep
+        js-comint
+        editorconfig
+        lsp-mode
+        ))
+
+(dolist (pkg my-packages)
+  (unless (package-installed-p pkg)
+    (package-install pkg)))
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -41,18 +80,19 @@
  '(indent-tabs-mode nil)
  '(inhibit-startup-screen t)
  '(markdown-command "pandoc")
- '(package-selected-packages '(compat))
+ '(package-selected-packages '(company compat))
  '(plantuml-default-exec-mode 'jar)
  '(python-check-command "pyflakes")
  '(python-shell-interpreter "python3")
  '(safe-local-variable-values
-   '((python-shell-virtualenv-root . "~/prog/python/fbxserv/venv")
+   '((python-shell-virtualenv-root . "~/prog/freeboxrec/venv")
+     (python-shell-virtualenv-root . "~/prog/python/fbxserv/venv")
      (python-shell-virtualenv-root . "~/prog/python/freeboxrec/venv")
      (python-shell-interpreter . "python3")
      (python-shell-virtualenv-root . "venv")))
  '(tramp-syntax 'simplified nil (tramp))
  '(transient-mark-mode t)
- '(vc-handled-backends '(Hg RCS CVS SVN SCCS Bzr Git Mtn Arch))
+ '(vc-handled-backends '(Hg RCS CVS SVN SCCS Bzr Git Arch))
  '(which-function-mode t)
  '(windmove-wrap-around t))
 (custom-set-faces
@@ -83,7 +123,7 @@
 ;(set-frame-font "-xos4-Terminus-bold-*-*-*-20-*-*-*-c-100-iso10646-1")
 ;(set-frame-font "DejaVu Sans Mono Book 12")
 ;(set-frame-font "Terminus")
-(let ((font "DejaVu Sans Mono Book 9"))
+(let ((font "DejaVu Sans Mono Book 11"))
   (progn
     (set-frame-font font)
     (add-to-list 'default-frame-alist
@@ -150,7 +190,7 @@
 (defun my-init-window ()
   (set-frame-parameter nil 'fullscreen 'maximized)
   (split-window nil nil t)
-  (if (> (display-pixel-width) 1366)
+  (if (> (display-pixel-height) 1080)
       (split-window nil nil t))
   (balance-windows))
 (when window-system
@@ -166,85 +206,55 @@
 ;; use X clipboard by default
 (setq x-select-enable-clipboard t)
 
-;; load credentials
-(condition-case err
-    (load-file "~/.credentials.el")
-  (error (warn (format "Failed to load credentials file: %s" err))))
+;; ;; EL-GET
+;; (add-to-list 'load-path (locate-user-emacs-file "el-get/el-get"))
+;; (unless (require 'el-get nil 'noerror)
+;;   (with-current-buffer
+;;       (url-retrieve-synchronously
+;;        "https://raw.github.com/dimitri/el-get/master/el-get-install.el")
+;;     (goto-char (point-max))
+;;     (eval-print-last-sexp)))
+;; (add-to-list 'el-get-recipe-path (locate-user-emacs-file "el-get-user/recipes"))
 
-;; EL-GET
-(add-to-list 'load-path (locate-user-emacs-file "el-get/el-get"))
-(unless (require 'el-get nil 'noerror)
-  (with-current-buffer
-      (url-retrieve-synchronously
-       "https://raw.github.com/dimitri/el-get/master/el-get-install.el")
-    (goto-char (point-max))
-    (eval-print-last-sexp)))
-(add-to-list 'el-get-recipe-path (locate-user-emacs-file "el-get-user/recipes"))
+;; (el-get-bundle applescript-mode
+;;   (add-to-list 'auto-mode-alist '("\\.applescript\\'" . applescript-mode)))
+;; (el-get-bundle auto-complete)
+;; (el-get-bundle goto-last-change)
+;; (el-get-bundle graphviz-dot-mode)
+;; (el-get-bundle haskell-mode)
+;; (el-get-bundle jedi)
+;; (el-get-bundle markdown-mode)
+;; (el-get-bundle restclient)
+;; (el-get-bundle ratish-punnoose/tla-mode)
+;; (el-get-bundle yaml-mode
+;;   (add-to-list 'auto-mode-alist '("\\.sls\\'" . yaml-mode)))
+;; (el-get-bundle s)
+;; (el-get-bundle dockerfile-mode)
+;; (el-get-bundle rpm-spec-mode)
+;; (el-get-bundle systemd-mode)
+;; (el-get-bundle rust-mode)
+;; (el-get-bundle plantuml-mode)
+;; (el-get-bundle magit)
+;; (el-get-bundle toml-mode)
+;; (el-get-bundle docker-tramp
+;;   :post-init (require 'docker-tramp-compat))
+;; (el-get-bundle jinja2-mode)
+;; (el-get-bundle web-mode)
+;; (el-get-bundle wgrep)
+;; (el-get-bundle impatient-mode) ;; local recipe
+;; (el-get-bundle js-comint)
+;; (add-hook 'js-mode-hook
+;;           (lambda ()
+;;             (local-set-key (kbd "C-c C-p") 'js-comint-repl)
+;;             (local-set-key (kbd "C-x C-e") 'js-comint-send-last-sexp)
+;;             (local-set-key (kbd "C-c C-r") 'js-comint-send-region)
+;;             (local-set-key (kbd "C-c C-b") 'js-comint-send-buffer)))
+;; (el-get-bundle editorconfig
+;;   :post-init (editorconfig-mode 1))
 
-(el-get-bundle applescript-mode
-  (add-to-list 'auto-mode-alist '("\\.applescript\\'" . applescript-mode)))
-(el-get-bundle company-mode)
-(el-get-bundle goto-last-change)
-(el-get-bundle graphviz-dot-mode)
-(el-get-bundle haskell-mode)
-(el-get-bundle jedi)
-(el-get-bundle markdown-mode)
-(el-get-bundle restclient)
-(el-get-bundle ratish-punnoose/tla-mode)
-(el-get-bundle yaml-mode
-  (add-to-list 'auto-mode-alist '("\\.sls\\'" . yaml-mode)))
-(el-get-bundle s)
-(el-get-bundle dockerfile-mode)
-(el-get-bundle rpm-spec-mode)
-(el-get-bundle systemd-mode)
-(el-get-bundle rust-mode)
-(el-get-bundle plantuml-mode)
-(el-get-bundle magit)
-(el-get-bundle toml-mode)
-(el-get-bundle docker-tramp
-  :post-init (require 'docker-tramp-compat))
-(el-get-bundle jinja2-mode)
-(el-get-bundle web-mode)
-(el-get-bundle wgrep)
-(el-get-bundle impatient-mode) ;; local recipe
-(el-get-bundle js-comint)
-(add-hook 'js-mode-hook
-          (lambda ()
-            (local-set-key (kbd "C-c C-p") 'js-comint-repl)
-            (local-set-key (kbd "C-x C-e") 'js-comint-send-last-sexp)
-            (local-set-key (kbd "C-c C-r") 'js-comint-send-region)
-            (local-set-key (kbd "C-c C-b") 'js-comint-send-buffer)))
-(el-get-bundle editorconfig
-  :post-init (editorconfig-mode 1))
-(el-get-bundle lsp-mode)
-(add-hook 'rust-mode-hook 'lsp-deferred)
-
-(el-get-bundle ellama
-  (progn
-    (require 'llm-ollama)
-    (require 'llm-openai)
-    (setq llm-warn-on-nonfree nil)
-    (let ((deepseek-key (if (boundp 'my-deepseek-key) my-deepseek-key ""))
-          (chat-provider (if (boundp 'my-deepseek-key) "deepseek-chat" "llama3.1")))
-      (setq-default ellama-providers
-		    '(("llama3.1" .
-                       (make-llm-ollama :embedding-model "llama3.1:8b"
-                                        :chat-model "llama3.1:8b"))
-                      ("deepseek-chat" .
-                       (make-llm-openai-compatible :chat-model "deepseek-chat"
-                                                   :url "https://api.deepseek.com"
-                                                   :key deepseek-key))
-                      ("deepseek-coder" .
-                       (make-llm-openai-compatible :chat-model "deepseek-coder"
-                                                   :url "https://api.deepseek.com"
-                                                   :key deepseek-key))))
-      (setq-default ellama-provider
-                    (eval (alist-get chat-provider ellama-providers nil nil #'string=))))
-    (setq-default ellama-session-auto-save nil)))
-
-;; End of recipes, call `el-get' to make sure all packages (including
-;; dependencies) are setup.
-(el-get 'sync)
+;; ;; End of recipes, call `el-get' to make sure all packages (including
+;; ;; dependencies) are setup.
+;; ;(el-get 'sync)
 
 ;; Jedi mode for python
 (add-hook 'python-mode-hook 'jedi:setup)
@@ -255,6 +265,9 @@
 (add-hook 'haskell-mode-hook 'haskell-indent-mode)
 (add-hook 'haskell-mode-hook 'interactive-haskell-mode)
 (add-hook 'haskell-mode-hook 'haskell-process-load-file)
+
+;; rust
+(add-hook 'rust-mode-hook 'lsp-deferred)
 
 ;; Toggle window dedication
 ;; https://stackoverflow.com/questions/43765/pin-emacs-buffers-to-windows-for-cscope#65992
