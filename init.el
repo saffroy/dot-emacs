@@ -166,6 +166,11 @@
 ;; use X clipboard by default
 (setq x-select-enable-clipboard t)
 
+;; load credentials
+(condition-case err
+    (load-file "~/.credentials.el")
+  (error (warn (format "Failed to load credentials file: %s" err))))
+
 ;; EL-GET
 (add-to-list 'load-path (locate-user-emacs-file "el-get/el-get"))
 (unless (require 'el-get nil 'noerror)
@@ -213,6 +218,29 @@
   :post-init (editorconfig-mode 1))
 (el-get-bundle lsp-mode)
 (add-hook 'rust-mode-hook 'lsp-deferred)
+
+(el-get-bundle ellama
+  (progn
+    (require 'llm-ollama)
+    (require 'llm-openai)
+    (setq llm-warn-on-nonfree nil)
+    (let ((deepseek-key (if (boundp 'my-deepseek-key) my-deepseek-key ""))
+          (chat-provider (if (boundp 'my-deepseek-key) "deepseek-chat" "llama3.1")))
+      (setq-default ellama-providers
+		    '(("llama3.1" .
+                       (make-llm-ollama :embedding-model "llama3.1:8b"
+                                        :chat-model "llama3.1:8b"))
+                      ("deepseek-chat" .
+                       (make-llm-openai-compatible :chat-model "deepseek-chat"
+                                                   :url "https://api.deepseek.com"
+                                                   :key deepseek-key))
+                      ("deepseek-coder" .
+                       (make-llm-openai-compatible :chat-model "deepseek-coder"
+                                                   :url "https://api.deepseek.com"
+                                                   :key deepseek-key))))
+      (setq-default ellama-provider
+                    (eval (alist-get chat-provider ellama-providers nil nil #'string=))))
+    (setq-default ellama-session-auto-save nil)))
 
 ;; End of recipes, call `el-get' to make sure all packages (including
 ;; dependencies) are setup.
