@@ -169,6 +169,7 @@
 
 ;; use X clipboard by default
 (setq x-select-enable-clipboard t)
+(setq x-select-enable-clipboard-manager nil)
 
 ;; load credentials
 (condition-case err
