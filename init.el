@@ -53,7 +53,6 @@
      (python-shell-virtualenv-root . "~/prog/python/freeboxrec/venv")
      (python-shell-interpreter . "python3")
      (python-shell-virtualenv-root . "venv")))
- '(tramp-syntax 'simplified nil (tramp))
  '(transient-mark-mode t)
  '(vc-handled-backends '(Hg RCS CVS SVN SCCS Bzr Git Mtn Arch))
  '(which-function-mode t)
@@ -206,8 +205,7 @@
 (el-get-bundle plantuml-mode)
 (el-get-bundle magit)
 (el-get-bundle toml-mode)
-(el-get-bundle docker-tramp
-  :post-init (require 'docker-tramp-compat))
+(el-get-bundle docker-tramp)
 (el-get-bundle jinja2-mode)
 (el-get-bundle web-mode)
 (el-get-bundle wgrep)
@@ -289,7 +287,10 @@
 (electric-pair-mode)
 
 ;; keep remote user's path
+(require 'tramp)
 (add-to-list 'tramp-remote-path 'tramp-own-remote-path)
+;; keep remote autosave files remote
+(setq auto-save-file-name-transforms nil)
 
 ;; custom filter for impatient mode that does simple string sustitutions
 
