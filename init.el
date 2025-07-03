@@ -206,7 +206,6 @@
 (el-get-bundle plantuml-mode)
 (el-get-bundle magit)
 (el-get-bundle toml-mode)
-(el-get-bundle docker-tramp)
 (el-get-bundle jinja2-mode)
 (el-get-bundle web-mode)
 (el-get-bundle wgrep)
