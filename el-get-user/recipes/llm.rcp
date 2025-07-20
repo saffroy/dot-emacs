@@ -3,4 +3,4 @@
        :minimum-emacs-version "28.1"
        :type github
        :pkgname "ahyatt/llm"
-       :depends (plz))
+       :depends (plz plz-event-source plz-media-type))

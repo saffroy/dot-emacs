@@ -1,0 +1,6 @@
+(:name plz-event-source
+       :description "Plz Event Source"
+       :minimum-emacs-version "26.3"
+       :type github
+       :pkgname "r0man/plz-event-source"
+       :depends (plz-media-type))

@@ -1,0 +1,6 @@
+(:name plz-media-type
+       :description "Plz Media Types"
+       :minimum-emacs-version "26.3"
+       :type github
+       :pkgname "r0man/plz-media-type"
+       :depends (plz))
