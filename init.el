@@ -228,11 +228,13 @@
     (require 'llm-openai)
     (setq llm-warn-on-nonfree nil)
     (let ((deepseek-key (if (boundp 'my-deepseek-key) my-deepseek-key ""))
-          (chat-provider (if (boundp 'my-deepseek-key) "deepseek-chat" "llama3.1")))
+          (chat-provider (if (boundp 'my-deepseek-key) "deepseek-chat" "qwen3")))
       (setq-default ellama-providers
-		    '(("llama3.1" .
-                       (make-llm-ollama :embedding-model "llama3.1:8b"
-                                        :chat-model "llama3.1:8b"))
+		    '(("qwen3" .
+                       (make-llm-ollama :embedding-model "qwen3:8b"
+                                        :chat-model "qwen3:8b"
+                                        :host "erda"
+                                        :default-chat-non-standard-params '(("num_ctx" . 24000))))
                       ("deepseek-chat" .
                        (make-llm-openai-compatible :chat-model "deepseek-chat"
                                                    :url "https://api.deepseek.com"
@@ -243,7 +245,10 @@
                                                    :key deepseek-key))))
       (setq-default ellama-provider
                     (eval (alist-get chat-provider ellama-providers nil nil #'string=))))
-    (setq-default ellama-session-auto-save nil)))
+    (setq-default ellama-session-auto-save nil)
+    (global-set-key (kbd "C-c e") 'ellama)
+    (setopt ellama-auto-scroll t)
+    (add-hook 'org-ctrl-c-ctrl-c-final-hook 'ellama-chat-send-last-message)))
 
 ;; End of recipes, call `el-get' to make sure all packages (including
 ;; dependencies) are setup.
