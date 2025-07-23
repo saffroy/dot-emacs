@@ -226,25 +226,30 @@
   (progn
     (require 'llm-ollama)
     (require 'llm-openai)
+    (require 'llm-gemini)
     (setq llm-warn-on-nonfree nil)
     (let ((deepseek-key (if (boundp 'my-deepseek-key) my-deepseek-key ""))
+          (gemini-key (if (boundp 'my-gemini-key) my-gemini-key ""))
           (chat-provider (if (boundp 'my-deepseek-key) "deepseek-chat" "qwen3")))
       (setq-default ellama-providers
-		    '(("qwen3" .
+		    `(("qwen3" .
                        (make-llm-ollama :embedding-model "qwen3:8b"
                                         :chat-model "qwen3:8b"
                                         :host "erda"
                                         :default-chat-non-standard-params '(("num_ctx" . 24000))))
+                      ("gemini" .
+                       (make-llm-gemini :chat-model "gemini-2.5-pro"
+                                        :key ,gemini-key))
                       ("deepseek-chat" .
                        (make-llm-openai-compatible :chat-model "deepseek-chat"
                                                    :url "https://api.deepseek.com"
-                                                   :key deepseek-key))
+                                                   :key ,deepseek-key))
                       ("deepseek-coder" .
                        (make-llm-openai-compatible :chat-model "deepseek-coder"
                                                    :url "https://api.deepseek.com"
-                                                   :key deepseek-key))))
+                                                   :key ,deepseek-key))))
       (setq-default ellama-provider
-                    (eval (alist-get chat-provider ellama-providers nil nil #'string=))))
+                    (alist-get chat-provider ellama-providers nil nil #'string=)))
     (setq-default ellama-session-auto-save nil)
     (global-set-key (kbd "C-c e") 'ellama)
     (setopt ellama-auto-scroll t)
